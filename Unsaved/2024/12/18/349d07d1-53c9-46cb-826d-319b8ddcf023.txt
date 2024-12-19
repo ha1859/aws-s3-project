@@ -1,0 +1,181 @@
+Query Plan
+{
+  "0" : {
+    "id" : "9",
+    "name" : "Output",
+    "descriptor" : {
+      "columnNames" : "[productcategory, _col1]"
+    },
+    "outputs" : [ {
+      "symbol" : "productcategory",
+      "type" : "varchar"
+    }, {
+      "symbol" : "count",
+      "type" : "bigint"
+    } ],
+    "details" : [ "_col1 := count" ],
+    "estimates" : [ {
+      "outputRowCount" : "NaN",
+      "outputSizeInBytes" : "NaN",
+      "cpuCost" : 0.0,
+      "memoryCost" : 0.0,
+      "networkCost" : 0.0
+    } ],
+    "children" : [ {
+      "id" : "235",
+      "name" : "Project",
+      "descriptor" : {
+        "projectLocality" : "LOCAL",
+        "protectedBarrier" : "NONE"
+      },
+      "outputs" : [ {
+        "symbol" : "productcategory",
+        "type" : "varchar"
+      }, {
+        "symbol" : "count",
+        "type" : "bigint"
+      } ],
+      "details" : [ ],
+      "estimates" : [ {
+        "outputRowCount" : "NaN",
+        "outputSizeInBytes" : "NaN",
+        "cpuCost" : "NaN",
+        "memoryCost" : 0.0,
+        "networkCost" : 0.0
+      } ],
+      "children" : [ {
+        "id" : "4",
+        "name" : "Aggregate",
+        "descriptor" : {
+          "type" : "FINAL",
+          "keys" : "[productcategory]",
+          "hash" : "[$hashvalue]"
+        },
+        "outputs" : [ {
+          "symbol" : "productcategory",
+          "type" : "varchar"
+        }, {
+          "symbol" : "$hashvalue",
+          "type" : "bigint"
+        }, {
+          "symbol" : "count",
+          "type" : "bigint"
+        } ],
+        "details" : [ "count := count(\"count_0\")" ],
+        "estimates" : [ {
+          "outputRowCount" : "NaN",
+          "outputSizeInBytes" : "NaN",
+          "cpuCost" : "NaN",
+          "memoryCost" : "NaN",
+          "networkCost" : 0.0
+        } ],
+        "children" : [ {
+          "id" : "198",
+          "name" : "LocalExchange",
+          "descriptor" : {
+            "partitioning" : "HASH",
+            "isReplicateNullsAndAny" : "",
+            "hashColumn" : "[$hashvalue]",
+            "arguments" : "[\"productcategory\"]"
+          },
+          "outputs" : [ {
+            "symbol" : "productcategory",
+            "type" : "varchar"
+          }, {
+            "symbol" : "count_0",
+            "type" : "bigint"
+          }, {
+            "symbol" : "$hashvalue",
+            "type" : "bigint"
+          } ],
+          "details" : [ ],
+          "estimates" : [ {
+            "outputRowCount" : "NaN",
+            "outputSizeInBytes" : "NaN",
+            "cpuCost" : "NaN",
+            "memoryCost" : 0.0,
+            "networkCost" : 0.0
+          } ],
+          "children" : [ {
+            "id" : "204",
+            "name" : "RemoteSource",
+            "descriptor" : {
+              "sourceFragmentIds" : "[1]"
+            },
+            "outputs" : [ {
+              "symbol" : "productcategory",
+              "type" : "varchar"
+            }, {
+              "symbol" : "count_0",
+              "type" : "bigint"
+            }, {
+              "symbol" : "$hashvalue_1",
+              "type" : "bigint"
+            } ],
+            "details" : [ ],
+            "estimates" : [ ],
+            "children" : [ ]
+          } ]
+        } ]
+      } ]
+    } ]
+  },
+  "1" : {
+    "id" : "202",
+    "name" : "Aggregate",
+    "descriptor" : {
+      "type" : "PARTIAL",
+      "keys" : "[productcategory]",
+      "hash" : "[$hashvalue_2]"
+    },
+    "outputs" : [ {
+      "symbol" : "productcategory",
+      "type" : "varchar"
+    }, {
+      "symbol" : "$hashvalue_2",
+      "type" : "bigint"
+    }, {
+      "symbol" : "count_0",
+      "type" : "bigint"
+    } ],
+    "details" : [ "count_0 := count(*)" ],
+    "estimates" : [ {
+      "outputRowCount" : "NaN",
+      "outputSizeInBytes" : "NaN",
+      "cpuCost" : "NaN",
+      "memoryCost" : "NaN",
+      "networkCost" : 0.0
+    } ],
+    "children" : [ {
+      "id" : "234",
+      "name" : "ScanProject",
+      "descriptor" : {
+        "table" : "awsdatacatalog:hussan_database:hussan_data_engineering_bucket",
+        "projectLocality" : "LOCAL",
+        "protectedBarrier" : "NONE"
+      },
+      "outputs" : [ {
+        "symbol" : "productcategory",
+        "type" : "varchar"
+      }, {
+        "symbol" : "$hashvalue_2",
+        "type" : "bigint"
+      } ],
+      "details" : [ "$hashvalue_2 := combine_hash(bigint '0', COALESCE(\"$operator$hash_code\"(\"productcategory\"), 0))", "productcategory := productcategory:string:REGULAR" ],
+      "estimates" : [ {
+        "outputRowCount" : "NaN",
+        "outputSizeInBytes" : "NaN",
+        "cpuCost" : "NaN",
+        "memoryCost" : 0.0,
+        "networkCost" : 0.0
+      }, {
+        "outputRowCount" : "NaN",
+        "outputSizeInBytes" : "NaN",
+        "cpuCost" : "NaN",
+        "memoryCost" : 0.0,
+        "networkCost" : 0.0
+      } ],
+      "children" : [ ]
+    } ]
+  }
+}
